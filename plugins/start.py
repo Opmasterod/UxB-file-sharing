@@ -33,7 +33,7 @@ from database.database import add_user, del_user, full_userbase, present_user
 from shortzy import Shortzy
 from config import TIME
 
-SECONDS = TIME
+SECONDSOP = TIME
 
 
 @Bot.on_message(filters.command('start') & filters.private & subscribed)
@@ -127,9 +127,9 @@ async def start_command(client: Client, message: Message):
                 except:
                     pass
 
-            if SECONDS != 0:
+            if SECONDSOP != 0:
                 notification_msg = await message.reply(f"<b>‼️ Watch Fast Lectures and Notes before Deleted after 5 hour.\n\nIf Your Lecture Pdf Deleted Don't worry you again able to access 🥰\n\n Go back from where you got link and again click on link and get Again\n\n𝐒𝐨𝐫𝐫𝐲,𝐅𝐨𝐫 𝐭𝐡𝐢𝐬 𝐍𝐨𝐭 𝐅𝐨𝐫𝐰𝐚𝐫𝐝𝐢𝐧𝐠 𝐨𝐧 𝐚𝐧𝐝 𝐧𝐨𝐭 𝐟𝐨𝐫 𝐚 𝐟𝐮𝐥𝐥 𝐭𝐢𝐦𝐞 𝐛𝐜𝐳 𝐰𝐞 𝐠𝐨𝐭 𝐜𝐨𝐩𝐲𝐫𝐢𝐠𝐡𝐭𝐬 😖😖 🙏</b>")
-                await asyncio.sleep(18000)
+                await asyncio.sleep(SECONDSOP)
                 for snt_msg in snt_msgs:
                     try:
                         await snt_msg.delete()

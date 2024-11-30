@@ -123,6 +123,7 @@ def get_exp_time(seconds):
             result += f'{int(period_value)}{period_name}'
     return result
 
+
 def get_readable_time(seconds: int) -> str:
     count = 0
     up_time = ""

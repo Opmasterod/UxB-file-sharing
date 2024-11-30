@@ -14,7 +14,7 @@ from datetime import datetime
 from database.database import user_data, db_verify_status, db_update_verify_status
 
 async def is_subscribed(filter, client, update):
-    if not (FORCESUB_CHANNEL or FORCESUB_CHANNEL2 or FORCESUB_CHANNEL3):
+    if not (FORCESUB_CHANNEL or FORCESUB_CHANNEL2):
         return True
 
     user_id = update.from_user.id

@@ -31,6 +31,9 @@ from config import (
 from helper_func import subscribed, encode, decode, get_messages, get_shortlink, get_verify_status, update_verify_status, get_exp_time
 from database.database import add_user, del_user, full_userbase, present_user
 from shortzy import Shortzy
+from config import TIME
+
+SECONDS = TIME
 
 
 @Bot.on_message(filters.command('start') & filters.private & subscribed)
@@ -58,11 +61,11 @@ async def start_command(client: Client, message: Message):
         if "verify_" in message.text:
             _, token = message.text.split("_", 1)
             if verify_status['verify_token'] != token:
-                return await message.reply("Your token is invalid or Expired. Try again by clicking /start")
+                return await message.reply(f"<b>❗Aapke bot ka verify token expire ho gaya hai.\n\n/start pe click karke new token lo aur apne aap ko verify karo unlimited use ke liye bina kisi error ke.\n\nAgar koi problem ho toh contact karo - @HACKHEISTBOT ❤</b>")
             await update_verify_status(id, is_verified=True, verified_time=time.time())
             if verify_status["link"] == "":
                 reply_markup = None
-            await message.reply(f"Your token successfully verified and valid for: 24 Hour", reply_markup=reply_markup, protect_content=False, quote=True)
+            await message.reply(f"<b>Welcome in our unlimited plan 🥰 !!</b>\n\n<b><blockquote>Ab aap bot ko bina kisi problem ke 30 ghante ke liye unlimited use kar sakte hain.\n\n30 ghante baad, bot ko unlimited use karne ke liye aapko fir se token link open karke verify karna hoga, next 30 ghante ke liye.\n\nDhanyawad 🙏🙏</blockquote><b>\n\n<b>Agar koi samasya ho toh contact kare @HACKHEISTBOT pe</b>", reply_markup=reply_markup, protect_content=False, quote=True)
 
         elif len(message.text) > 7 and verify_status['is_verified']:
             try:
@@ -109,9 +112,9 @@ async def start_command(client: Client, message: Message):
                     caption = "" if not msg.caption else msg.caption.html
 
                 if DISABLE_CHANNEL_BUTTON:
-                    reply_markup = msg.reply_markup
+                    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("𝗠𝗢𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘𝗦", url='https://t.me/HIDDEN_OFFICIALS_3/3')]])
                 else:
-                    reply_markup = None
+                    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("𝗠𝗢𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘𝗦", url='https://t.me/HIDDEN_OFFICIALS_3/3')]])
 
                 try:
                     snt_msg = await msg.copy(chat_id=message.from_user.id, caption=caption, parse_mode=ParseMode.HTML, reply_markup=reply_markup, protect_content=PROTECT_CONTENT)
@@ -124,8 +127,8 @@ async def start_command(client: Client, message: Message):
                 except:
                     pass
 
-            SD = await message.reply_text("Baka! Files will be deleted After 600 seconds. Save them to the Saved Message now!")
-            await asyncio.sleep(600)
+            SD = await message.reply_text(f"<b>‼️ Watch Fast Lectures and Notes before Deleted after {get_exp_time(SECONDS)}.\n\nIf Your Lecture Pdf Deleted Don't worry you again able to access 🥰\n\n Go back from where you got link and again click on link and get Again\n\n𝐒𝐨𝐫𝐫𝐲,𝐅𝐨𝐫 𝐭𝐡𝐢𝐬 𝐍𝐨𝐭 𝐅𝐨𝐫𝐰𝐚𝐫𝐝𝐢𝐧𝐠 𝐨𝐧 𝐚𝐧𝐝 𝐧𝐨𝐭 𝐟𝐨𝐫 𝐚 𝐟𝐮𝐥𝐥 𝐭𝐢𝐦𝐞 𝐛𝐜𝐳 𝐰𝐞 𝐠𝐨𝐭 𝐜𝐨𝐩𝐲𝐫𝐢𝐠𝐡𝐭𝐬 😖😖 🙏</b>")
+            await asyncio.sleep(SECONDS)
 
             for snt_msg in snt_msgs:
                 try:
@@ -136,8 +139,8 @@ async def start_command(client: Client, message: Message):
 
         elif verify_status['is_verified']:
             reply_markup = InlineKeyboardMarkup(
-                [[InlineKeyboardButton("About Me", callback_data="about"),
-                  InlineKeyboardButton("Close", callback_data="close")]]
+                [[InlineKeyboardButton('⚡️ 𝗧𝗘𝗟𝗘𝗚𝗥𝗔𝗠', url='https://t.me/Hidden_officials_3'),
+                  InlineKeyboardButton('🍁 𝗬𝗢𝗨𝗧𝗨𝗕𝗘', url='https://youtube.com/@TEAM_OPMASTER')]]
             )
             await message.reply_text(
                 text=START_MSG.format(
@@ -161,10 +164,10 @@ async def start_command(client: Client, message: Message):
                 await update_verify_status(id, verify_token=token, link="")
                 link = await get_shortlink(SHORTLINK_URL, SHORTLINK_API,f'https://telegram.dog/{client.username}?start=verify_{token}')
                 btn = [
-                    [InlineKeyboardButton("Click here", url=link)],
-                    [InlineKeyboardButton('How to use the bot', url=TUT_VID)]
+                    [InlineKeyboardButton("𝗢𝗣𝗘𝗡 𝗩𝗘𝗥𝗜𝗙𝗜𝗬 𝗧𝗢𝗞𝗘𝗡", url=link)],
+                    [InlineKeyboardButton('𝐇𝐎𝐖 𝐓𝐎 𝐎𝐏𝐄𝐍 ?', url=TUT_VID)]
                 ]
-                await message.reply(f"Your Ads token is expired, refresh your token and try again.\n\nToken Timeout: {get_exp_time(VERIFY_EXPIRE)}\n\nWhat is the token?\n\nThis is an ads token. If you pass 1 ad, you can use the bot for 24 Hour after passing the ad.", reply_markup=InlineKeyboardMarkup(btn), protect_content=False, quote=True)
+                await message.reply(f"<b>Your Verify Token is Expired 😖,\nOpen new token for again use bot unlimited.\n\n☆NOTE - After {get_exp_time(VERIFY_EXPIRE)} again you have to verify yourself using token\n\n<b><blockquote>What is the Verify token ? 🤔\nIf you pass 1 token url then you are able to use bot unlimited and get any file/video unlimited times in this {get_exp_time(VERIFY_EXPIRE)} time interval</blockquote><b>\n\nSo open Link and use bot 😍\nIf any problem to open link then watch below HOW TO OPEN?? And still you have problem contact @HACKHEISTBOT ❤</b>", reply_markup=InlineKeyboardMarkup(btn), protect_content=False, quote=True)
 
 
 WAIT_MSG = "<b>ᴡᴏʀᴋɪɴɢ....</b>"
@@ -176,15 +179,15 @@ REPLY_ERROR = "<code>Use this command as a reply to any telegram message without
 async def not_joined(client: Client, message: Message):
     buttons = [
         [
-            InlineKeyboardButton(text="• ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ", url=client.invitelink2),
-            InlineKeyboardButton(text="• ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ •", url=client.invitelink),
+            InlineKeyboardButton(text="𝐉𝐎𝐈𝐍 𝐂𝐇𝐀𝐍𝐍𝐄𝐋 𝟏", url=client.invitelink),
+            InlineKeyboardButton(text="𝐉𝐎𝐈𝐍 𝐂𝐇𝐀𝐍𝐍𝐄𝐋 𝟐", url=client.invitelink2),
         ]
     ]
     try:
         buttons.append(
             [
                 InlineKeyboardButton(
-                    text = '• ɴᴏᴡ ᴄʟɪᴄᴋ ʜᴇʀᴇ •',
+                    text = '• 𝐍𝐨𝐰 𝐂𝐥𝐢𝐜𝐤 𝐌𝐞',
                     url = f"https://t.me/{client.username}?start={message.command[1]}"
                 )
             ]

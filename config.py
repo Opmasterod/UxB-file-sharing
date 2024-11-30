@@ -47,7 +47,7 @@ VERIFY_EXPIRE = int(os.environ.get('VERIFY_EXPIRE', 86400)) # Add time in second
 IS_VERIFY = os.environ.get("IS_VERIFY", "True")
 TUT_VID = os.environ.get("TUT_VID","gojfsi/2")
 
-TIME = os.environ.get("TIME","18000")
+#TIME = os.environ.get("TIME","18000")
 
 #start message
 START_MSG = os.environ.get("START_MESSAGE", "<b>Hey {first} 🥰\n\nThis bot is Made by HACKHEIST Only For You Carry on 🌟\n\nAny Problem - @HACKHEISTBOT</b>")
